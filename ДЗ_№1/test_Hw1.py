@@ -1,7 +1,7 @@
 from hypothesis import given
 import hypothesis.strategies as st
 from Hw_1 import (digit_sum, is_prime, triangle_area, count_words, arithmetic_mean, count_by_sign,
-                  replace_negatives, without_duplicates)
+                  replace_negatives, without_duplicates, append_digit)
 
 # 1.
 @given(st.integers())
@@ -106,3 +106,14 @@ def test_without_duplicates_properties(lst):
     assert len(result) == len(set(result))
     assert set(result) == set(original_lst)
     assert lst == original_lst
+
+# 9.
+@given(
+    st.integers(min_value=0, max_value=100000),
+    st.integers(min_value=0, max_value=9)
+)
+def test_append_digit_properties(number, digit):
+    result = append_digit(number, digit)
+
+    assert result % 10 == digit
+    assert result // 10 == number

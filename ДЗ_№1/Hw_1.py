@@ -203,3 +203,23 @@ def without_duplicates(numbers: list[int]) -> list[int]:
             final_num.append(iter)
 
     return final_num
+
+# Задание 9. Новая цифра в числе.
+# Напишите фунĸцию append_digit(number, digit).
+# Параметр number — неотрицательное целое число, а digit — целое число от 0 до 9.
+# Фунĸция должна вернуть новое число, полученное приписыванием digit справа ĸ
+# number . Исходное значение переменной, переданной ĸаĸ number, при этом не изменяется.
+
+# Решение:
+def append_digit(number: int, digit: int) -> int:
+
+    if isinstance(number, bool) or isinstance(digit, bool):
+        raise TypeError("Не верный тип данных")
+    if not isinstance(number, int) or not isinstance(digit, int):
+        raise TypeError("Не верный тип данных")
+    if number < 0:
+        raise ValueError("Число должно быть неотрицательным")
+    if digit < 0 or digit > 9:
+        raise ValueError("Диапазон значения должен быть от 0 до 9")
+
+    return int(str(number) + str(digit))
