@@ -1,6 +1,7 @@
 from hypothesis import given
 import hypothesis.strategies as st
-from Hw_1 import digit_sum, is_prime, triangle_area, count_words, arithmetic_mean, count_by_sign
+from Hw_1 import (digit_sum, is_prime, triangle_area, count_words, arithmetic_mean, count_by_sign,
+                  replace_negatives)
 
 # 1.
 @given(st.integers())
@@ -77,3 +78,20 @@ def test_count_by_sign_properties(lst):
     assert result[0] >= 0
     assert result[1] >= 0
     assert result[2] >= 0
+
+# 7.
+@given(st.lists(st.integers(), min_size=0, max_size=100))
+def test_replace_negatives_properties(lst):
+
+    original_lst = lst.copy()
+    replace_negatives(lst)
+
+    assert len(lst) == len(original_lst)
+
+    for i, num in enumerate(lst):
+
+        assert num >= 0
+        if original_lst[i] >= 0:
+            assert num == original_lst[i]
+        else:
+            assert num == 0

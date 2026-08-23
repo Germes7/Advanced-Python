@@ -133,7 +133,7 @@ def count_by_sign(*numbers: int | float) -> list:
             raise TypeError("Не верный тип данных")
 
         if not isinstance(num, (int, float)):
-            raise TypeError("Не верный тип данных")
+            raise TypeError("Значения должны быть (int или float)")
 
     positive_num = 0
     negative_num = 0
@@ -149,3 +149,27 @@ def count_by_sign(*numbers: int | float) -> list:
             zero_num += 1
 
     return [positive_num, negative_num, zero_num]
+
+# Задание 7. Замена отрицательных элементов.
+# Напишите фунĸцию replace_negatives(numbers).
+# Параметр numbers — списоĸ целых чисел.
+# Фунĸция должна заменить ĸаждый отрицательный элемент списĸа нулём.
+# Необходимо изменить именно переданный списоĸ, а не создавать и возвращать новый. Фунĸция
+# ничего не возвращает.
+
+# Решение:
+def replace_negatives(numbers) -> None:
+
+    if not isinstance(numbers, list):
+        raise TypeError("Не верный тип данных")
+
+    for iter in numbers:
+        if not isinstance(iter, int):
+            raise TypeError("Значения должны быть int")
+
+    i = 0
+    for iter in numbers:
+
+        if numbers[i] < 0:
+            numbers[i] = 0
+        i += 1
