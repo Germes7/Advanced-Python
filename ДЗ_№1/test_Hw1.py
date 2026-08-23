@@ -1,6 +1,6 @@
 from hypothesis import given
 import hypothesis.strategies as st
-from Hw_1 import digit_sum, is_prime, triangle_area
+from Hw_1 import digit_sum, is_prime, triangle_area, count_words
 
 # 1.
 @given(st.integers())
@@ -41,3 +41,11 @@ def test_triangle_area_properties(base, height):
 
     if base == 2.0 and height == 2.0:
         assert result == 2.0
+
+# 4.
+@given(st.text(), st.integers(min_value=1, max_value=100))
+def test_count_words_properties(text, min_length):
+    result = count_words(text, min_length)
+
+    assert result >= 0
+    assert result <= len(text.split())
