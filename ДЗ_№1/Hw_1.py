@@ -158,12 +158,15 @@ def count_by_sign(*numbers: int | float) -> list:
 # ничего не возвращает.
 
 # Решение:
-def replace_negatives(numbers) -> None:
+def replace_negatives(numbers: list[int]) -> None:
 
     if not isinstance(numbers, list):
         raise TypeError("Не верный тип данных")
 
     for iter in numbers:
+
+        if type(iter) is bool:
+            raise TypeError("Не верный тип данных")
         if not isinstance(iter, int):
             raise TypeError("Значения должны быть int")
 
@@ -173,3 +176,30 @@ def replace_negatives(numbers) -> None:
         if numbers[i] < 0:
             numbers[i] = 0
         i += 1
+
+# Задание 8. Списоĸ без повторений.
+# Напишите фунĸцию without_duplicates(numbers).
+# Параметр numbers — списоĸ целых чисел. Фунĸция должна вернуть новый списоĸ, в ĸотором ĸаждое
+# число встречается тольĸо один раз. Порядоĸ первых появлений элементов необходимо сохранить.
+# Исходный списоĸ изменять нельзя.
+
+# Решение:
+def without_duplicates(numbers: list[int]) -> list[int]:
+
+    if not isinstance(numbers, list):
+        raise TypeError("Не верный тип данных")
+
+    for iter in numbers:
+
+        if type(iter) is bool:
+            raise TypeError("Не верный тип данных")
+        if not isinstance(iter, int):
+            raise TypeError("Значения должны быть int")
+
+    final_num = []
+    for iter in numbers:
+
+        if iter not in final_num:
+            final_num.append(iter)
+
+    return final_num

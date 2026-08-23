@@ -1,7 +1,7 @@
 from hypothesis import given
 import hypothesis.strategies as st
 from Hw_1 import (digit_sum, is_prime, triangle_area, count_words, arithmetic_mean, count_by_sign,
-                  replace_negatives)
+                  replace_negatives, without_duplicates)
 
 # 1.
 @given(st.integers())
@@ -95,3 +95,14 @@ def test_replace_negatives_properties(lst):
             assert num == original_lst[i]
         else:
             assert num == 0
+
+# 8.
+@given(st.lists(st.integers(), min_size=0, max_size=100))
+def test_without_duplicates_properties(lst):
+
+    original_lst = lst.copy()
+    result = without_duplicates(lst)
+
+    assert len(result) == len(set(result))
+    assert set(result) == set(original_lst)
+    assert lst == original_lst
