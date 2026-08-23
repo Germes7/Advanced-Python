@@ -1,6 +1,6 @@
 from hypothesis import given
 import hypothesis.strategies as st
-from Hw_1 import digit_sum, is_prime
+from Hw_1 import digit_sum, is_prime, triangle_area
 
 # 1.
 @given(st.integers())
@@ -27,3 +27,17 @@ def test_is_prime_properties(number):
 
     if number in [2, 3, 5, 7, 11]:
         assert result is True
+
+# 3.
+@given(
+    st.floats(min_value=0.1, max_value=10000.0),
+    st.floats(min_value=0.1, max_value=10000.0)
+)
+def test_triangle_area_properties(base, height):
+
+    result = triangle_area(base, height)
+
+    assert result > 0
+
+    if base == 2.0 and height == 2.0:
+        assert result == 2.0
