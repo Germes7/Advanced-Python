@@ -1,6 +1,6 @@
 from hypothesis import given
 import hypothesis.strategies as st
-from Hw_1 import digit_sum, is_prime, triangle_area, count_words
+from Hw_1 import digit_sum, is_prime, triangle_area, count_words, arithmetic_mean
 
 # 1.
 @given(st.integers())
@@ -49,3 +49,18 @@ def test_count_words_properties(text, min_length):
 
     assert result >= 0
     assert result <= len(text.split())
+
+# 5.
+@given(st.lists(st.floats(min_value=-1000.0, max_value=1000.0), min_size=1, max_size=50))
+def test_arithmetic_mean_same_numbers(lst):
+
+    single_num = lst[0]
+    identical_list = [single_num] * len(lst)
+    result = arithmetic_mean(*identical_list)
+
+    assert abs(result - single_num) < 1e-9
+
+def test_arithmetic_mean_empty():
+
+    assert arithmetic_mean() is None
+
