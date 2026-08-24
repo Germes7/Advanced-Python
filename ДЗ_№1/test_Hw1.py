@@ -1,7 +1,7 @@
 from hypothesis import given
 import hypothesis.strategies as st
-from Hw_1 import (digit_sum, is_prime, triangle_area, count_words, arithmetic_mean, count_by_sign,
-                  replace_negatives, without_duplicates, append_digit)
+from Hw_1 import (digit_sum, is_prime, triangle_area, count_words, arithmetic_mean,
+                  count_by_sign, replace_negatives, without_duplicates, append_digit, set_at)
 
 # 1.
 @given(st.integers())
@@ -117,3 +117,29 @@ def test_append_digit_properties(number, digit):
 
     assert result % 10 == digit
     assert result // 10 == number
+
+# 10.
+@given(
+    st.lists(st.integers(), min_size=1, max_size=50).flatmap(
+        lambda lst: st.tuples(
+            st.just(lst),
+            st.lists(st.integers(min_value=0, max_value=len(lst) - 1), unique=True)
+        )
+    ),
+    st.integers()
+)
+def test_set_at_properties(lst_and_indices, value):
+    original_list, indices = lst_and_indices
+    test_list = original_list.copy()
+
+    set_at(test_list, value, *indices)
+
+    assert len(test_list) == len(original_list)
+
+    for idx in range(len(test_list)):
+        if idx in indices:
+            assert test_list[idx] == value
+        else:
+            assert test_list[idx] == original_list[idx]
+
+# ВСЕ ТЕСТЫ ЧЕСТНО СПИЗ...ЖЕНЫ У ИИ. ИБО В ДОКУМЕНТАЦИИ Hypothesis ДО КОНЦА НЕ РАЗОБРАЛСЯ.
