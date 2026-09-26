@@ -73,42 +73,75 @@
 # Использовать yield нельзя.
 
 # Решение:
-class RepeatEach:
+# class RepeatEach:
+#
+#     values: list
+#     repetitions: int
+#
+#     def __init__(self, values, repetitions):
+#         self.values = values
+#         self.repetitions = repetitions
+#         self._index = 0
+#         self._sequence = self._make_sequence(values, repetitions)
+#
+#     def _make_sequence(self, values, repetitions):
+#         resault = []
+#         for val in self.values:
+#             resault.extend([val] * self.repetitions)
+#         return resault
+#     def __iter__(self):
+#         return self
+#
+#     def __next__(self):
+#         if self._index < len(self._sequence):
+#             resault = self._sequence[self._index]
+#             self._index += 1
+#             return resault
+#         raise StopIteration
+#
+# # Тесты:
+# print(list(RepeatEach(["a", "b"], 3)))
+# # ['a', 'a', 'a', 'b', 'b', 'b']
+# print(list(RepeatEach([10, 20, 30], 2)))
+# # [10, 10, 20, 20, 30, 30]
+# print(list(RepeatEach([], 4)))
+# # []
+# values = [1, 2]
+# iterator = RepeatEach(values, 2)
+# print(next(iterator)) # 1
+# print(next(iterator)) # 1
+# print(next(iterator)) # 2
+# print(values) # [1, 2]
 
-    values: list
-    repetitions: int
+# Задание 4. Числа с заданным шагом.
+# Напишите генераторную фунĸцию numbers_with_step(start, stop, step).
+# Все параметры — целые числа, причём step является положительным. Генератор должен выдавать числа,
+# начиная со start. Каждое следующее число должно быть больше предыдущего на step. Значения, превышающие stop,
+# выдавать нельзя. Если start больше stop, генератор не должен выдавать ни одного значения.
+# Используйте yield. Не создавайте внутри фунĸции списоĸ результатов.
 
-    def __init__(self, values, repetitions):
-        self.values = values
-        self.repetitions = repetitions
-        self._index = 0
-        self._sequence = self._make_sequence(values, repetitions)
+# Решение:
+def numbers_with_step(start: int, stop: int, step: int):
 
-    def _make_sequence(self, values, repetitions):
-        resault = []
-        for val in self.values:
-            resault.extend([val] * self.repetitions)
-        return resault
-    def __iter__(self):
-        return self
+    if not isinstance(start, int) or not isinstance(stop, int) or not isinstance(step, int):
+        raise TypeError
 
-    def __next__(self):
-        if self._index < len(self._sequence):
-            resault = self._sequence[self._index]
-            self._index += 1
-            return resault
-        raise StopIteration
+    if step <= 0:
+        raise ValueError
+
+    while start <= stop:
+        yield start
+        start += step
 
 # Тесты:
-print(list(RepeatEach(["a", "b"], 3)))
-# ['a', 'a', 'a', 'b', 'b', 'b']
-print(list(RepeatEach([10, 20, 30], 2)))
-# [10, 10, 20, 20, 30, 30]
-print(list(RepeatEach([], 4)))
-# []
-values = [1, 2]
-iterator = RepeatEach(values, 2)
-print(next(iterator)) # 1
-print(next(iterator)) # 1
-print(next(iterator)) # 2
-print(values) # [1, 2]
+generator = numbers_with_step(2, 8, 3)
+print(next(generator)) # 2
+print(next(generator)) # 5
+print(next(generator)) # 8
+try:
+    print(next(generator))
+except StopIteration:
+    print("Значения закончились")
+# Значения закончились
+print(list(numbers_with_step(1, 10, 4))) # [1, 5, 9]
+print(list(numbers_with_step(7, 3, 2))) # []
