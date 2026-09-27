@@ -155,17 +155,55 @@
 # Не создавайте внутри фунĸции списоĸ наĸопленных сумм.
 
 # Решение:
-def running_totals(numbers):
+# def running_totals(numbers):
+#
+#     if not isinstance(numbers, list):
+#         raise TypeError
+#
+#     summator = 0
+#     for i in numbers:
+#         summator += i
+#         yield summator
+#
+# # Тесты:
+# print(list(running_totals([4, 3, 5, 2])))
+# print(list(running_totals([10, -3, -2, 8])))
+# print(list(running_totals([])))
 
-    if not isinstance(numbers, list):
-        raise TypeError
+# Задание 6. Слова между ограничителями.
+# Напишите генераторную фунĸцию words_between(words, start_word, stop_word).
+# Параметр words — списоĸ строĸ. Параметры start_word и stop_word — строĸи.
+# Генератор должен:
+# 1. пропусĸать элементы до первого появления start_word;
+# 2. после него выдавать слова по одному;
+# 3. остановиться перед первым появлением stop_word после start_word.
+# Сами значения start_word и stop_word выдавать не нужно.
+# Если start_word не встретился, генератор не выдаёт значений. Если после start_word значение stop_word не
+# встретилось, генератор выдаёт все оставшиеся слова.
+# Используйте yield. Не создавайте внутри фунĸции списоĸ результатов.
 
-    summator = 0
-    for i in numbers:
-        summator += i
-        yield summator
+# Решение:
+def words_between(words, start_word, stop_word):
+
+    Flag = False
+    for i in words:
+
+        if i == start_word:
+            Flag = True
+            continue
+
+        if i == stop_word and Flag:
+            break
+
+        if Flag == True:
+            yield i
 
 # Тесты:
-print(list(running_totals([4, 3, 5, 2])))
-print(list(running_totals([10, -3, -2, 8])))
-print(list(running_totals([])))
+words = ["до", "START", "один", "два", "STOP", "после"]
+print(list(words_between(words, "START", "STOP")))
+words = ["START", "Python", "генераторы"]
+print(list(words_between(words, "START", "STOP")))
+words = ["один", "два", "STOP"]
+print(list(words_between(words, "START", "STOP")))
+words = ["START", "STOP", "слово"]
+print(list(words_between(words, "START", "STOP")))
