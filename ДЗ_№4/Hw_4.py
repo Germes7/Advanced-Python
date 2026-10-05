@@ -1,5 +1,4 @@
 import asyncio
-
 # Задание 1.
 async def prepare_drink(name, delay):
 
